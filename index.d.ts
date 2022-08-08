@@ -1,0 +1,1 @@
+type parts = "Hair" | "Eye" | "Background" | "Stroke"
