@@ -13,7 +13,7 @@ export default function Footer() {
             Eye: 'none',
             Background: 'none',
             Stroke: 'currentColor'
-          }} stroke='12.5' className='text-[40px] -my-[5px]' />
+          }} stroke='12.5' className='w-10 -my-[5px]' />
         </IconLink>
         <IconLink title="Twitter link" link='https://twitter.com/object1037' >
           <FiTwitter />
