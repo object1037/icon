@@ -45,7 +45,7 @@ const Home: NextPage = () => {
       <div className='mt-16 mb-8'>
         <Icon colors={colors} stroke={stroke} setPart={setPart} className='w-60 h-60' ref={iconEl} />
       </div>
-      <button className='inline-flex flex-row items-center text-xl bg-gray-100 p-3 px-4 rounded-full mb-14 hover:bg-gray-200 transition' onClick={() => copyHandler(`data:image/svg+xml;base64,${Buffer.from(iconEl.current === null ? '' : iconEl.current.outerHTML).toString('base64')}`)}>
+      <button className='inline-flex flex-row items-center text-xl p-3 px-4 rounded-full mb-14 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition' onClick={() => copyHandler(`data:image/svg+xml;base64,${Buffer.from(iconEl.current === null ? '' : iconEl.current.outerHTML).toString('base64')}`)}>
         <FiCopy className={clsx(copied && 'hidden', 'mr-3')} />
         <FiCheck className={clsx(!copied && 'hidden', 'mr-3')} />
         <span className='text-base'>Copy base64</span>
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
           <p className='mb-4 text-lg underline underline-offset-4'>Stroke</p>
           <div className='flex space-x-4 items-center'>
             <div onClick={() => setPart('Stroke')} className='w-10 h-10 rounded-full' style={{backgroundColor: `${colors.Stroke}`}} />
-            <input type='number' value={stroke} onChange={(e) => setStroke(e.target.value)} min={1} max={20} className='rounded-full w-16 bg-gray-100 border-transparent focus:ring-0 focus:border-gray-400' />
+            <input type='number' value={stroke} onChange={(e) => setStroke(e.target.value)} min={1} max={20} className='rounded-full w-16 bg-gray-100 dark:bg-gray-800 border-transparent focus:ring-0 focus:border-gray-400 dark:focus:border-gray-500' />
           </div>
         </div>
       </div>
