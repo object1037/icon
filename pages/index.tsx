@@ -6,7 +6,6 @@ import PartPicker from '../components/partPIcker'
 import Footer from '../components/footer'
 import Icon from '../components/icon'
 import { FiCopy, FiCheck } from 'react-icons/fi'
-import clsx from 'clsx'
 
 const Home: NextPage = () => {
   const [part, setPart] = useState<parts>('Hair')
@@ -56,9 +55,8 @@ const Home: NextPage = () => {
         <Icon colors={colors} stroke={stroke} className='w-60 h-60' ref={iconEl} />
       </div>
       <button className='inline-flex flex-row items-center text-xl p-3 px-4 rounded-full mb-8 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition' onClick={() => copyHandler(`data:image/svg+xml;base64,${Buffer.from(iconEl.current === null ? '' : iconEl.current.outerHTML).toString('base64')}`)}>
-        <FiCopy className={clsx(copied && 'hidden', 'mr-3')} />
-        <FiCheck className={clsx(!copied && 'hidden', 'mr-3')} />
-        <span className='text-base'>Copy base64</span>
+        {copied ? <FiCheck /> : <FiCopy />}
+        <span className='text-base ml-3'>Copy base64</span>
       </button>
       <div className='flex space-x-2 mb-12'>
         <PartPicker color={colors.Hair} setPart={() => setPart('Hair')} title='Select hair color' focused={part === 'Hair'} />
