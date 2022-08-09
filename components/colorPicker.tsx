@@ -1,6 +1,6 @@
 import { HexColorPicker, HexColorInput } from "react-colorful"
 
-const Picker = ({
+const ColorPicker = ({
   part,
   colors,
   handleChange
@@ -20,4 +20,4 @@ const Picker = ({
   )
 }
 
-export default Picker
+export default ColorPicker
