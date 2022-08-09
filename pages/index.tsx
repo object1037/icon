@@ -61,10 +61,10 @@ const Home: NextPage = () => {
         <span className='text-base'>Copy base64</span>
       </button>
       <div className='flex space-x-2 mb-12'>
-        <PartPicker color={colors.Hair} setPart={() => setPart('Hair')} title='Select hair color' />
-        <PartPicker color={colors.Eye} setPart={() => setPart('Eye')} title='Select eye color' />
-        <PartPicker color={colors.Background} setPart={() => setPart('Background')} title='Select background color' />
-        <PartPicker color={colors.Stroke} setPart={() => setPart('Stroke')} title='Select stroke color' />
+        <PartPicker color={colors.Hair} setPart={() => setPart('Hair')} title='Select hair color' focused={part === 'Hair'} />
+        <PartPicker color={colors.Eye} setPart={() => setPart('Eye')} title='Select eye color' focused={part === 'Eye'} />
+        <PartPicker color={colors.Background} setPart={() => setPart('Background')} title='Select background color' focused={part === 'Background'} />
+        <PartPicker color={colors.Stroke} setPart={() => setPart('Stroke')} title='Select stroke color' focused={part === 'Stroke'} />
       </div>
       <div className='flex flex-col sm:flex-row space-x-0 sm:space-x-10 space-y-10 sm:space-y-0'>
         <ColorPicker part={part} colors={colors} handleChange={handleChange} />
