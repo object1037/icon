@@ -15,7 +15,7 @@ const Home: NextPage = () => {
     Background: '#fff5f6',
     Stroke: '#000000'
   })
-  const [stroke, setStroke] = useState('5')
+  const [stroke, setStroke] = useState('6')
   const [copied, setCopied] = useState(false)
 
   const iconEl = useRef<SVGSVGElement>(null)

@@ -7,7 +7,7 @@ const Icon = forwardRef(({
     Background: '#fff5f6',
     Stroke: '#000000'
   },
-  stroke = '5',
+  stroke = '6',
   className
 }: {
   colors?: {
