@@ -15,7 +15,7 @@ const Icon = forwardRef(({
   }
   stroke?: string
   className?: string
-}, ref: ForwardedRef<SVGSVGElement>) => {
+}, ref?: ForwardedRef<SVGSVGElement>) => {
   return (
     <svg ref={ref} stroke={colors.Stroke} strokeWidth={stroke} fill="none" width="100%" height="100%" viewBox="0 0 240 240" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" className={className}>
       <circle cx={120} cy={120} r={120} fill={colors.Background} stroke="none" />
