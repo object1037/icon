@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useState, useRef } from 'react'
 import ColorPicker from '../components/colorPicker'
-import PartPicker from '../components/partPIcker'
+import PartPicker from '../components/partPicker'
 import Footer from '../components/footer'
 import Icon from '../components/icon'
 import { FiCopy, FiCheck } from 'react-icons/fi'
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
       </div>
       <button className='inline-flex flex-row items-center text-xl p-3 px-4 rounded-full mb-8 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition' onClick={() => copyHandler(`data:image/svg+xml;base64,${Buffer.from(iconEl.current === null ? '' : iconEl.current.outerHTML).toString('base64')}`)}>
         {copied ? <FiCheck /> : <FiCopy />}
-        <span className='text-base ml-3'>Copy base64</span>
+        <span className='text-base ml-3'>Copy data URI</span>
       </button>
       <div className='flex space-x-2 mb-12'>
         <PartPicker color={colors.Hair} setPart={() => setPart('Hair')} title='Select hair color' focused={part === 'Hair'} />
