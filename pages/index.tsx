@@ -47,7 +47,7 @@ const Home: NextPage = () => {
       <meta property="og:url" content="https://icon.object1037.dev" />
       <meta property="og:title" content="object1037 icon" />
       <meta property="og:description" content="object1037's icon" />
-      <meta property="og:image" content="https://icon.object1037.dev/mono.png" />
+      <meta property="og:image" content="https://icon.object1037.dev/png" />
       <link rel='canonical' href='https://icon.object1037.dev'/>
     </Head>
     <main className='font-mono flex flex-col items-center mb-20'>
