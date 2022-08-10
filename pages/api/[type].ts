@@ -18,6 +18,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       flag = true
       return
     }
+    if (key === 'type' && !['jpeg', 'png', 'webp', 'avif'].includes(value)) {
+      flag = true
+      return
+    }
   })
   if (flag) {
     res.status(400).json({ message: 'Bad query' })
@@ -25,7 +29,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
 
-  const { hair, eye, bg, stroke, strokeWidth, size } = req.query
+  const { hair, eye, bg, stroke, strokeWidth, size, type } = req.query
   try {
     const svgStr = `
     <svg stroke="#${stroke || '000000'}" stroke-width="${strokeWidth || 6}" fill="none" width="100%" height="100%" viewBox="0 0 240 240" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
@@ -39,11 +43,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const pngBuffer = await sharp(Buffer.from(svgStr))
       .resize({ width: size ? +size : 600 })
-      .png()
+      .toFormat(type as "jpeg" | "png" | "webp" | "avif")
       .toBuffer()
       .catch(e => { throw new Error(e) })
 
-    res.setHeader('Content-Type', `image/png`)
+    res.setHeader('Content-Type', `image/${type}`)
     res.setHeader('Cache-Control', `public, immutable, no-transform, s-maxage=31536000, max-age=31536000`)
     res.end(pngBuffer)
   } catch (e) {
