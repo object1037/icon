@@ -9,10 +9,10 @@ export default function Footer() {
       <div className="flex flex-row space-x-2">
         <IconLink title='Homepage' link='https://object1037.dev' >
           <Icon colors={{
-            Hair: 'none',
-            Eye: 'none',
-            Background: 'none',
-            Stroke: 'currentColor'
+            hair: '#0000',
+            eye: '#0000',
+            bg: '#0000',
+            stroke: 'currentColor'
           }} stroke='12' className='w-10 -my-[5px]' />
         </IconLink>
         <IconLink title="Twitter link" link='https://twitter.com/object1037' >
