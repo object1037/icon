@@ -71,7 +71,7 @@ const Home: NextPage = () => {
           <option value='webp'>WebP</option>
           <option value='avif'>AVIF</option>
         </select>
-        <button className='text-xl w-12 h-12 inline-flex justify-center items-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition' onClick={() => copyHandler(colors, stroke, format)}>
+        <button title='Copy URL' className='text-xl w-12 h-12 inline-flex justify-center items-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition' onClick={() => copyHandler(colors, stroke, format)}>
           {copied ? <FiCheck /> : <FiCopy />}
         </button>
       </div>
