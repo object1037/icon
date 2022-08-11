@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   const [part, setPart] = useState<parts>('Hair')
   const [colors, setColors] = useState({
     Hair: '#ffbac1',
-    Eye: '#fff5f6',
+    Eye: '#00000000',
     Background: '#fff5f6',
     Stroke: '#000000'
   })
