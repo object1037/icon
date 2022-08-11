@@ -18,7 +18,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       flag = true
       return
     }
-    if (key === 'format' && !['jpeg', 'png', 'webp', 'avif'].includes(value)) {
+    if (key === 'format' && !['jpeg', 'png', 'webp', 'avif', 'svg'].includes(value)) {
       flag = true
       return
     }
@@ -39,7 +39,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       <path fill="none" d="M 119.77674,44.525186 C 116.99085,33.401337 93.557883,30.993847 74.530401,40.054844" />
       <path fill="#${eye || 'fff5f6'}" d="m 141.339,136.05869 26.30855,-4.71551 m -7.95961,1.53382 0.0944,22.83095 c 0.007,0.94397 -0.53354,1.95448 -2.06029,1.96992 h -12.31853 c -1.57507,0.019 -2.13218,-1.0917 -2.14049,-2.06029 l 1.4e-4,-19.81058 M 98.658552,136.05869 72.35,131.34318 m 7.959615,1.53382 -0.09438,22.83095 c -0.007,0.94397 0.533534,1.95448 2.060284,1.96992 h 12.318535 c 1.575064,0.019 2.13218,-1.0917 2.140488,-2.06029 l -1.4e-4,-19.81058" />
     </svg>
-    `
+    `.trim()
+
+    res.setHeader('Cache-Control', `public, immutable, no-transform, s-maxage=31536000, max-age=31536000`)
+
+    if (format === 'svg') {
+      res.setHeader('Content-Type', `image/svg+xml`)
+      res.end(svgStr)
+      return
+    }
 
     const imgBuffer = await sharp(Buffer.from(svgStr))
       .resize({ width: size ? +size : 600 })
@@ -48,7 +56,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .catch(e => { throw new Error(e) })
 
     res.setHeader('Content-Type', `image/${format}`)
-    res.setHeader('Cache-Control', `public, immutable, no-transform, s-maxage=31536000, max-age=31536000`)
     res.end(imgBuffer)
   } catch (e) {
     res.status(500).json({ message: e })
