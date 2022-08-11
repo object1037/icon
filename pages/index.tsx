@@ -6,15 +6,11 @@ import PartPicker from '../components/partPicker'
 import Footer from '../components/footer'
 import Icon from '../components/icon'
 import { FiCopy, FiCheck } from 'react-icons/fi'
+import { defaultColors } from '../constants'
 
 const Home: NextPage = () => {
-  const [part, setPart] = useState<parts>('Hair')
-  const [colors, setColors] = useState({
-    Hair: '#ffbac1',
-    Eye: '#00000000',
-    Background: '#fff5f6',
-    Stroke: '#000000'
-  })
+  const [part, setPart] = useState<parts>('hair')
+  const [colors, setColors] = useState(defaultColors)
   const [stroke, setStroke] = useState('6')
   const [format, setFormat] = useState('svg')
   const [copied, setCopied] = useState(false)
@@ -27,13 +23,18 @@ const Home: NextPage = () => {
     setColors(newColors)
   }
   const copyHandler = (colors: { [key in parts]: string}, stroke: string, format: string) => {
-    const params = new URLSearchParams({
-      hair: colors.Hair.slice(1),
-      eye: colors.Eye.slice(1),
-      bg: colors.Background.slice(1),
-      stroke: colors.Stroke.slice(1),
-      strokeWidth: stroke,
+    const params = new URLSearchParams()
+    Object.entries(colors).forEach(([key, value]) => {
+      if (defaultColors[key as parts] === value) {
+        return
+      } else {
+        params.append(key, value.slice(1))
+      }
     })
+    if (stroke !== '6') {
+      params.append('strokeWidth', stroke)
+    }
+
     let url = new URL(`/${format}`, 'https://icon.object1037.dev/')
     url.search = params.toString()
 
@@ -56,7 +57,7 @@ const Home: NextPage = () => {
       <meta property="og:url" content="https://icon.object1037.dev" />
       <meta property="og:title" content="object1037 icon" />
       <meta property="og:description" content="object1037's icon" />
-      <meta property="og:image" content="https://icon.object1037.dev/png" />
+      <meta property="og:image" content="https://icon.object1037.dev/png?hair=0000&bg=fafafa" />
       <link rel='canonical' href='https://icon.object1037.dev'/>
     </Head>
     <main className='font-mono flex flex-col items-center mb-20'>
@@ -76,10 +77,10 @@ const Home: NextPage = () => {
         </button>
       </div>
       <div className='flex space-x-2 mb-12'>
-        <PartPicker color={colors.Hair} setPart={() => setPart('Hair')} title='Select hair color' focused={part === 'Hair'} />
-        <PartPicker color={colors.Eye} setPart={() => setPart('Eye')} title='Select eye color' focused={part === 'Eye'} />
-        <PartPicker color={colors.Background} setPart={() => setPart('Background')} title='Select background color' focused={part === 'Background'} />
-        <PartPicker color={colors.Stroke} setPart={() => setPart('Stroke')} title='Select stroke color' focused={part === 'Stroke'} />
+        <PartPicker color={colors.hair} setPart={() => setPart('hair')} title='Select hair color' focused={part === 'hair'} />
+        <PartPicker color={colors.eye} setPart={() => setPart('eye')} title='Select eye color' focused={part === 'eye'} />
+        <PartPicker color={colors.bg} setPart={() => setPart('bg')} title='Select background color' focused={part === 'bg'} />
+        <PartPicker color={colors.stroke} setPart={() => setPart('stroke')} title='Select stroke color' focused={part === 'stroke'} />
       </div>
       <div className='flex flex-col sm:flex-row space-x-0 sm:space-x-10 space-y-10 sm:space-y-0'>
         <ColorPicker part={part} colors={colors} handleChange={handleChange} />
