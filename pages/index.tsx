@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import ColorPicker from '../components/colorPicker'
 import PartPicker from '../components/partPicker'
 import Footer from '../components/footer'
@@ -16,9 +16,8 @@ const Home: NextPage = () => {
     Stroke: '#000000'
   })
   const [stroke, setStroke] = useState('6')
+  const [format, setFormat] = useState('svg')
   const [copied, setCopied] = useState(false)
-
-  const iconEl = useRef<SVGSVGElement>(null)
 
   const handleChange = (part: parts, color: string) => {
     const newColors = {
@@ -27,8 +26,18 @@ const Home: NextPage = () => {
     }
     setColors(newColors)
   }
-  const copyHandler = (text: string) => {
-    navigator.clipboard.writeText(text).then(() => {
+  const copyHandler = (colors: { [key in parts]: string}, stroke: string, format: string) => {
+    const params = new URLSearchParams({
+      hair: colors.Hair.slice(1),
+      eye: colors.Eye.slice(1),
+      bg: colors.Background.slice(1),
+      stroke: colors.Stroke.slice(1),
+      strokeWidth: stroke,
+    })
+    let url = new URL(`/${format}`, 'https://icon.object1037.dev/')
+    url.search = params.toString()
+
+    navigator.clipboard.writeText(url.href).then(() => {
       setCopied(true)
       setTimeout(() => {
         setCopied(false)
@@ -52,12 +61,20 @@ const Home: NextPage = () => {
     </Head>
     <main className='font-mono flex flex-col items-center mb-20'>
       <div className='mt-16 mb-8'>
-        <Icon colors={colors} stroke={stroke} className='w-60 h-60' ref={iconEl} />
+        <Icon colors={colors} stroke={stroke} className='w-60 h-60' />
       </div>
-      <button className='inline-flex flex-row items-center text-xl p-3 px-4 rounded-full mb-8 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition' onClick={() => copyHandler(`data:image/svg+xml;base64,${Buffer.from(iconEl.current === null ? '' : iconEl.current.outerHTML).toString('base64')}`)}>
-        {copied ? <FiCheck /> : <FiCopy />}
-        <span className='text-base ml-3'>Copy data URI</span>
-      </button>
+      <div className='flex space-x-4 mb-8'>
+        <select value={format} onChange={(e) => setFormat(e.target.value)} className='rounded-full w-28 h-12 text-center mx-auto bg-gray-100 dark:bg-gray-800 border-transparent focus:ring-0 focus:border-gray-400 dark:focus:border-gray-500'>
+          <option value='svg'>SVG</option>
+          <option value='png'>PNG</option>
+          <option value='jpeg'>JPEG</option>
+          <option value='webp'>WebP</option>
+          <option value='avif'>AVIF</option>
+        </select>
+        <button className='text-xl w-12 h-12 inline-flex justify-center items-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition' onClick={() => copyHandler(colors, stroke, format)}>
+          {copied ? <FiCheck /> : <FiCopy />}
+        </button>
+      </div>
       <div className='flex space-x-2 mb-12'>
         <PartPicker color={colors.Hair} setPart={() => setPart('Hair')} title='Select hair color' focused={part === 'Hair'} />
         <PartPicker color={colors.Eye} setPart={() => setPart('Eye')} title='Select eye color' focused={part === 'Eye'} />
