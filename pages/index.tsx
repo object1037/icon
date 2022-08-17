@@ -45,6 +45,8 @@ const Home: NextPage = () => {
       }, 2500)
     })
   }
+  
+  const headerStyle = "block mb-4 text-lg underline underline-offset-4"
 
   return (
     <>
@@ -82,12 +84,22 @@ const Home: NextPage = () => {
         <PartPicker color={colors.bg} setPart={() => setPart('bg')} title='Select background color' focused={part === 'bg'} />
         <PartPicker color={colors.stroke} setPart={() => setPart('stroke')} title='Select stroke color' focused={part === 'stroke'} />
       </div>
-      <div className='flex flex-col sm:flex-row space-x-0 sm:space-x-10 space-y-10 sm:space-y-0'>
+      <div className='flex flex-col sm:flex-row gap-x-0 sm:gap-x-10 gap-y-10 sm:gap-y-0 mb-14'>
         <ColorPicker part={part} colors={colors} handleChange={handleChange} />
         <div className='w-[200px]'>
-          <label htmlFor='strokeWidth' className='block mb-4 text-lg underline underline-offset-4'>Stroke width</label>
+          <label htmlFor='strokeWidth' className={headerStyle}>Stroke width</label>
           <input id='strokeWidth' type='number' value={stroke} onChange={(e) => setStroke(e.target.value)} min={1} max={20} className='rounded-full w-16 mx-auto bg-gray-100 dark:bg-gray-800 border-transparent focus:ring-0 focus:border-gray-400 dark:focus:border-gray-500' />
         </div>
+      </div>
+      <div className='flex w-full max-w-[200px] sm:max-w-[440px]'>
+        <a 
+          href='https://github.com/object1037/icon/blob/main/README.md#api-usage'
+          target="_blank"
+          rel="noopener noreferrer"
+          className={headerStyle + ' text-blue-500 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-500 transition'}
+        >
+          API Usage
+        </a>
       </div>
     </main>
     <Footer />
