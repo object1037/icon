@@ -1,19 +1,20 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import localFont from '@next/font/local'
+import { JetBrains_Mono } from 'next/font/google'
 import clsx from 'clsx'
 
-const JetBrainsMono = localFont({
-  src: '../public/fonts/JetBrainsMono-var.woff2',
+const jetbrainsmono = JetBrains_Mono({
+  subsets: ['latin'],
   variable: '--font-jetbrainsmono',
+  fallback: ['monospace'],
 })
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <main
       className={clsx(
-        JetBrainsMono.className,
-        'grid grid-rows-[1fr_auto] grid-cols-[100%] min-h-screen'
+        jetbrainsmono.variable,
+        'font-mono grid grid-rows-[1fr_auto] grid-cols-[100%] min-h-screen'
       )}
     >
       <Component {...pageProps} />
